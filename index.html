@@ -32,6 +32,18 @@
 		<div class="results-container">
 			<div class="search-results"></div>
 			<div class="results"></div>
+				<script id="template" type = "text/template">
+					<a href={{pageLink}} target="_blank">
+						<div class="top-answerers-wrap">
+							<img class="image" src={{source}}>
+							<div class="user-info">
+								<p class="user-name">User Name: {{userName}}</p>
+								<p class="total-posts">Total Posts: {{totalPosts}}</p>
+								<p class="score">Score: {{score}}</p>
+							</div>
+						</div>
+					</a>
+				</script>
 		</div>
 	</div>
 	<div class="templates hidden">

@@ -31,6 +31,17 @@ var showQuestion = function(question) {
 	return result;
 };
 
+var showInspiration = function(user){
+	var html = $('#template')
+							.html()
+							.replace(/{{source}}/, user.user.profile_image)
+							.replace(/{{userName}}/, user.user.display_name)
+							.replace(/{{totalPosts}}/, user.post_count)
+							.replace(/{{score}}/, user.score)
+							.replace(/{{pageLink}}/g, user.user.link);
+	$('.results').append(html);
+};
+
 
 // this function takes the results object from StackOverflow
 // and returns the number of results and tags to be appended to DOM
@@ -81,6 +92,31 @@ var getUnanswered = function(tags) {
 	});
 };
 
+var getInspiration = function(tag) {
+	console.log(tag);
+	var params = {
+		site: 'stackoverflow'
+	};
+
+	$.ajax({
+		url: "http://api.stackexchange.com/2.2/tags/" + tag + "/top-answerers/all_time?",
+		data: params,
+		dataType: "jsonp",
+		type: "GET",
+	})
+	.done(function(result){
+		var searchResults = showSearchResults(tag, result.items.length);
+		$('.search-results').html(searchResults);
+		$.each(result.items, function(index, value) {
+			showInspiration(value);
+		});
+	})
+	.fail(function(jqXHR, error){
+		var errorElem = showErrir(error);
+		$('.search-results').append(errorElem);
+	});
+};
+
 
 $(document).ready( function() {
 	$('.unanswered-getter').submit( function(e){
@@ -90,5 +126,14 @@ $(document).ready( function() {
 		// get the value of the tags the user submitted
 		var tags = $(this).find("input[name='tags']").val();
 		getUnanswered(tags);
+		$("input[name='tags']").val('');
+	});
+
+	$('.inspiration-getter').submit( function(event){
+		event.preventDefault();
+		$('.results').html('');
+		var tag = $(this).find("input[name='answerers']").val();
+		getInspiration(tag);
+		$("input[name='answerers']").val('');
 	});
 });
