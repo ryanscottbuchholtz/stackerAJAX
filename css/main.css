@@ -35,6 +35,11 @@
 	margin-left: 3em;
 }
 
+.search-results {
+	margin-top: 25px;
+	font-size: 1.4em;
+}
+
 .result {
 	border: 1px solid black;
 	padding: 5px;
@@ -44,4 +49,32 @@
 .error {
 	background-color: #F78181;
 	padding: 1em;
+}
+
+.top-answerers-wrap {
+	display: flex;
+	margin: 15px;
+	background-color: #f2f2f2;	
+	box-shadow: 0 15px 20px -12px darkgrey;
+}
+
+.user-info {
+	margin-left: 25px;
+}
+
+.image {
+	box-shadow: 0 15px 20px -12px darkgrey;
+}
+
+.score {
+	font-weight: bold;
+}
+
+a {
+	text-decoration: none;
+	color: inherit;
+}
+
+mark {
+	text-transform: bold;
 }
